@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    จำนวนคนเข้าใช้งาน <p id="status">0</p>
+    รายชื่อผู้ใช้งาน <p id="users"></p>
+    <script>
+        const eventSource = new EventSource(`http://localhost:3000/status_sse`);
+        eventSource.onmessage = function(res){
+            users = JSON.parse(res.data)
+            document.getElementById("status").innerHTML = users.length
+            document.getElementById("users").innerHTML = users
+        }
+    </script>
+</body>
+</html>
